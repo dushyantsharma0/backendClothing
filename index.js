@@ -3,10 +3,12 @@ const session = require('express-session');
 const Router = require('./routes/UserRouter');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const core=require("cors");
 
 mongoose.connect(process.env.Mongoose_Connection);
 
 const app = express();
+  app.use(core())
 
 app.use(session({
   secret: 'keyboard cat',
