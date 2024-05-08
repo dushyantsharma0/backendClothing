@@ -17,7 +17,10 @@
     if(!errors.isEmpty()){
         return resp.status(400).json({errors:errors.array()})
     }
-   
+   const  isalredyregister=await reqisterSchma.findOne({email:req.body.email})
+  if(isalredyregister){
+    return resp.status(400).json({message:'email is alredy register'})
+  }else{
     const registation= new reqisterSchma({
         name:req.body.name,
         email:req.body.email,
@@ -28,6 +31,9 @@
     })
        const data= await registation.save()
         resp.status(200).json({data:data})
+  }
+
+    
        
    try {
     
@@ -134,28 +140,28 @@
                     const update= await  reqisterSchma.updateOne({email:email},{$inc:{totalNumber:1}})
 
                     console.log('you have 4 chance for open')
-                    resp.status(404).json({message:"you have 4 chance for open"})
+                    resp.status(404).json({message:"wrong OTP you have 4 chance "})
                 }
                  if(data2.totalNumber==1){
                     const update= await  reqisterSchma.updateOne({email:email},{$inc:{totalNumber:1}})
 
                     console.log('you have 3 chance for open')
-                    resp.status(404).json({message:"you have 3 chance for open"})
+                    resp.status(404).json({message:"wrong OTP you have 3 chance "})
                 }
                 if(data2.totalNumber==2){
                     const update= await  reqisterSchma.updateOne({email:email},{$inc:{totalNumber:1}})
 
                        console.log('you have 2 chance for open')
-                       resp.status(404).json({message:"you have 2 chance for open"})
+                       resp.status(404).json({message:"wrong OTP you have 2 chance "})
                        
                 }if(data2.totalNumber==3){
                     const update= await  reqisterSchma.updateOne({email:email},{$inc:{totalNumber:1}})
 
                     console.log('you have 1 chance for open')
-                    resp.status(404).json({message:"you have 1 chance for open"})
+                    resp.status(404).json({message:"wrong OTP you have 1 chance "})
                 }if(data2.totalNumber>=4){
                     
-                    resp.status(404).json({message:`wait for ${req.session.data} minuts `,})
+                    resp.status(404).json({message:`wait for 1 hour `,})
                 }
             }
         } catch (error) {
