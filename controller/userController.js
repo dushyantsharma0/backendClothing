@@ -81,8 +81,7 @@
               
 
               if(data.totalNumber<4){
-                data.otp=otp
-                await data.save()
+                
                 const msg=`<h1>your Otp is ${otp}</h1>`
                 Mailer.sendMail(email,'BX-OTP',msg)
                 resp.status(200).json({data:'otp send success'})
