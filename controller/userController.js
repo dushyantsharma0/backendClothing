@@ -21,7 +21,11 @@
     const registation= new reqisterSchma({
         name:req.body.name,
         email:req.body.email,
-        password:req.body.password})
+        password:req.body.password,
+        totalNumber: 0,
+       
+    
+    })
        const data= await registation.save()
         resp.status(200).json({data:data})
        
